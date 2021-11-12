@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!-- Send debug messages to System.out -->
+    <appender name="appQueueAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.home}/logs/igos/app/igos.%d{yyyy-MM-dd}.log.zip
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%t] %logger{0}.%M:%line - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="appQueueAppenderQueue"
+              class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>10240</queueSize>
+        <appender-ref ref="appQueueAppender"/>
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <logger name="com.fsoft" level="INFO" additivity="false">
+        <appender-ref ref="appQueueAppenderQueue"/>
+    </logger>
+
+    <appender name="requestResponseQueueAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${catalina.home}/logs/igos/requestResponse/request-response.%d{yyyy-MM-dd}.log.zip
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level [%t] %logger{0}.%M:%line - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="requestResponseQueueAppenderQueue"
+              class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>10240</queueSize>
+        <appender-ref ref="requestResponseQueueAppender"/>
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <logger name="com.fsoft.igos.aop.logging.RequestResponseLoggingFilter"
+            level="INFO" additivity="false">
+        <appender-ref ref="requestResponseQueueAppenderQueue"/>
+    </logger>
+
+    <contextListener
+            class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+    <root level="INFO">
+        <appender-ref ref="appQueueAppenderQueue"/>
+    </root>
+</configuration>
