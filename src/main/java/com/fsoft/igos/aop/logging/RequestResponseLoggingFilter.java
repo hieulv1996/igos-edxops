@@ -50,12 +50,17 @@ public class RequestResponseLoggingFilter implements Filter {
         } finally {
             // In case the request for getting status, login, ignore it.
             boolean showRequestBody = true;
-            if (requestUri.contains("/status") || requestUri.contains("login")) {
-                // Ignore these request
-            } else {
+            if (requestUri.contains("/api")) {
                 logRequestInfo(requestWrapper, showRequestBody);
                 logResponseInfo(responseWrapper, System.currentTimeMillis() - startTime);
             }
+
+//            if (requestUri.contains("/status") || requestUri.contains("login")) {
+//                // Ignore these request
+//            } else {
+//                logRequestInfo(requestWrapper, showRequestBody);
+//                logResponseInfo(responseWrapper, System.currentTimeMillis() - startTime);
+//            }
         }
     }
 
