@@ -52,12 +52,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
@@ -135,34 +129,7 @@
     </dependencies>
 
     <build>
-        <finalName>Igos-DemoProject</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>**/*.asc</exclude>
-                    <exclude>**/*.pfx</exclude>
-                    <exclude>**/*.der</exclude>
-                    <exclude>**/*.pem</exclude>
-                    <exclude>**/*.key</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>**/*.asc</include>
-                    <include>**/*.pfx</include>
-                    <include>**/*.der</include>
-                    <include>**/*.pem</include>
-                    <include>**/*.key</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources/keys</directory>
-            </resource>
-        </resources>
+        <finalName>igos-edxops</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -21,7 +21,7 @@ public class SupportController {
     @GetMapping(path = "/status")
     public ResponseEntity<Map<String, Object>> getStatus() {
         Map<String, Object> response = new HashMap<>();
-        response.put("name", "Igos");
+        response.put("name", "Igos Edxops");
         response.put("status", "Running");
         response.put("releaseDate", DateTimeUtils.convertDateToString(DateTimeUtils.toDate(mAppConfig.getBuildDate())));
         response.put("upTime", DateTimeUtils.toString(mUpTime));
