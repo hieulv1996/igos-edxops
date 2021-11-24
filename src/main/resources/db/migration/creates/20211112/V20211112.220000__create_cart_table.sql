@@ -5,8 +5,8 @@ create table IF NOT EXISTS carts
     productId       numeric     NOT NULL,
 
     status          boolean  default false,
-    createdDateTime DATETIME default now(),
-    updatedDateTime DATETIME default now(),
+    createdDateTime DATETIME,
+    updatedDateTime DATETIME,
 
     CONSTRAINT carts_id_pk PRIMARY KEY (id),
     CONSTRAINT carts_productId_products FOREIGN KEY (productId)

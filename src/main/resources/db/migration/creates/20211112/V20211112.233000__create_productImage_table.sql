@@ -5,8 +5,8 @@ create table IF NOT EXISTS productImages
     imageUrl        varchar(4000) NOT NULL,
 
     status          boolean  default true,
-    createdDateTime DATETIME default now(),
-    updatedDateTime DATETIME default now(),
+    createdDateTime DATETIME,
+    updatedDateTime DATETIME,
 
     CONSTRAINT productImages_id_pk PRIMARY KEY (id),
     CONSTRAINT productImages_productId_product FOREIGN KEY (productId)

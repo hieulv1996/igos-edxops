@@ -5,8 +5,8 @@ create table IF NOT EXISTS transactionDetails
     cartId          numeric NOT NULL,
 
     status          boolean  default false,
-    createdDateTime DATETIME default now(),
-    updatedDateTime DATETIME default now(),
+    createdDateTime DATETIME,
+    updatedDateTime DATETIME,
 
     CONSTRAINT transactionDetails_id_pk PRIMARY KEY (id),
     CONSTRAINT transactionDetails_transactionId_transactions FOREIGN KEY (transactionId)

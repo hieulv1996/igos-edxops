@@ -1,0 +1,14 @@
+version: '3.5'
+services:
+  fsoft-igos-edxops:
+    build:
+      context: ../../
+      dockerfile: cluster/docker/Dockerfile
+    image: fsoft-igos-edxops
+    container_name: fsoft-igos-edxops
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./fileshare:/mnt/fileshare
+    environment:
+      FILE_SHARE_MOUNT_PATH: /mnt/fileshare

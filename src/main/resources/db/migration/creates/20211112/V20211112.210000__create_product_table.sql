@@ -9,8 +9,8 @@ create table IF NOT EXISTS products
     quantity        numeric       NOT NULL,
 
     status          boolean  default true,
-    createdDateTime DATETIME default now(),
-    updatedDateTime DATETIME default now(),
+    createdDateTime DATETIME,
+    updatedDateTime DATETIME,
 
     CONSTRAINT products_id_pk PRIMARY KEY (id),
 
