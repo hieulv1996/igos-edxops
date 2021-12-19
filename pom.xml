@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.fsoft</groupId>
     <artifactId>igos</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Igos</name>
     <description>Demo project for Mock Project</description>
     <properties>

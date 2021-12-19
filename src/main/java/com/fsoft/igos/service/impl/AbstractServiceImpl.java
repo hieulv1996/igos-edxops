@@ -20,9 +20,6 @@ import java.util.*;
 
 public abstract class AbstractServiceImpl implements AbstractService {
 
-    @Autowired
-    private ObjectMapper mAbstractMapper;
-
     public abstract AbstractMapper getMapper();
 
     public abstract JpaRepository getRepository();
@@ -33,33 +30,20 @@ public abstract class AbstractServiceImpl implements AbstractService {
 
     @Override
     public <E extends AuditableEntity> ResponseDTO getList(String filter, Pageable pageable, Class<E> cls) {
+        ObjectMapper mapper = new ObjectMapper();
         getLogger().info("getList: {}", filter);
         ResponseDTO r = new ResponseDTO();
         Example<E> example = null;
         try {
             E entity = cls.newInstance();
             if (StringUtils.isNotEmpty(filter)) {
-                Map<String, String> map = mAbstractMapper.readValue(filter, Map.class);
+                Map<String, String> map = mapper.readValue(filter, Map.class);
                 if (map.size() > 0) {
                     PropertyAccessor accessor = PropertyAccessorFactory.forBeanPropertyAccess(entity);
                     ExampleMatcher matcher = ExampleMatcher.matchingAll();
                     for (Map.Entry e : map.entrySet()) {
                         if (getSearchList().indexOf(e.getKey()) > -1) {
-                            if (Arrays.asList("application", "feature", "paymentMode").contains(String.valueOf(e.getKey()))) {
-                                Object subEntity = new Object();
-                                switch (String.valueOf(e.getKey())) {
-                                    default:
-                                        break;
-                                }
-                                PropertyAccessor subAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subEntity);
-                                Map<String, String> subMap = (Map) e.getValue();
-                                for (Map.Entry<String, String> subE : subMap.entrySet()) {
-                                    subAccessor.setPropertyValue(subE.getKey(), subE.getValue());
-                                }
-                                accessor.setPropertyValue(String.valueOf(e.getKey()), subEntity);
-                            } else {
-                                accessor.setPropertyValue(String.valueOf(e.getKey()), e.getValue());
-                            }
+                            accessor.setPropertyValue(String.valueOf(e.getKey()), e.getValue());
                             matcher = matcher.withMatcher(String.valueOf(e.getKey()),
                                     ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
                         }
@@ -155,49 +139,6 @@ public abstract class AbstractServiceImpl implements AbstractService {
         } catch (Exception e) {
             getLogger().error("delete list failed", e);
             r.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return r;
-    }
-
-    @Override
-    public <E extends AuditableEntity> List getReportList(String filter, Class<E> cls) {
-        List r = new ArrayList<>();
-        Example<E> example = null;
-        try {
-            E entity = cls.newInstance();
-            if (StringUtils.isNotEmpty(filter)) {
-                Map<String, String> map = mAbstractMapper.readValue(filter, Map.class);
-                if (map.size() > 0) {
-                    PropertyAccessor accessor = PropertyAccessorFactory.forBeanPropertyAccess(entity);
-                    ExampleMatcher matcher = ExampleMatcher.matchingAll();
-                    for (Map.Entry e : map.entrySet()) {
-                        if (getSearchList().indexOf(e.getKey()) > -1) {
-                            if (Arrays.asList("application", "feature", "paymentMode").contains(String.valueOf(e.getKey()))) {
-                                Object subEntity = new Object();
-                                switch (String.valueOf(e.getKey())) {
-                                    default:
-                                        break;
-                                }
-                                PropertyAccessor subAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subEntity);
-                                Map<String, String> subMap = (Map) e.getValue();
-                                for (Map.Entry<String, String> subE : subMap.entrySet()) {
-                                    subAccessor.setPropertyValue(subE.getKey(), subE.getValue());
-                                }
-                                accessor.setPropertyValue(String.valueOf(e.getKey()), subEntity);
-                            } else {
-                                accessor.setPropertyValue(String.valueOf(e.getKey()), e.getValue());
-                            }
-                            matcher = matcher.withMatcher(String.valueOf(e.getKey()),
-                                    ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
-                        }
-                    }
-                    example = Example.of(entity, matcher);
-                }
-                Sort sort = Sort.by(Sort.Direction.fromString(map.get("order")), map.get("field"));
-                return example != null ? getRepository().findAll(example, sort) : getRepository().findAll(sort);
-            }
-        } catch (Exception ex) {
-            getLogger().error("getReportList failed", ex);
         }
         return r;
     }
