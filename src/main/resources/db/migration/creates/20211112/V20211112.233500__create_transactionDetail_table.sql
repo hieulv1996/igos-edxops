@@ -4,9 +4,11 @@ create table IF NOT EXISTS transactionDetails
     transactionId   numeric NOT NULL,
     cartId          numeric NOT NULL,
 
-    status          boolean  default false,
+    status          boolean default false,
     createdDateTime DATETIME,
     updatedDateTime DATETIME,
+    createdBy       varchar(200),
+    lastModifiedBy  varchar(200),
 
     CONSTRAINT transactionDetails_id_pk PRIMARY KEY (id),
     CONSTRAINT transactionDetails_transactionId_transactions FOREIGN KEY (transactionId)

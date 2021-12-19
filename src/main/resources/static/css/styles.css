@@ -11391,3 +11391,8 @@ footer.footer {
   padding: 0;
   margin: 0;
 }
+
+.menu-color {
+  padding: 5px;
+  font-size: 14px;
+}

@@ -33,3 +33,4 @@ build/
 ### VS Code ###
 .vscode/
 /catalina.home_IS_UNDEFINED/
+/cluster/docker/fileshare/*

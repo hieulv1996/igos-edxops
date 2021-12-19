@@ -4,9 +4,12 @@ create table IF NOT EXISTS productImages
     productId       numeric       NOT NULL,
     imageUrl        varchar(4000) NOT NULL,
 
-    status          boolean  default true,
+    status          boolean default true,
     createdDateTime DATETIME,
     updatedDateTime DATETIME,
+    createdBy       varchar(200),
+    lastModifiedBy  varchar(200),
+
 
     CONSTRAINT productImages_id_pk PRIMARY KEY (id),
     CONSTRAINT productImages_productId_product FOREIGN KEY (productId)

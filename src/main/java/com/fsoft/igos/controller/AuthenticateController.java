@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class SecurityController {
-    private static Logger LOGGER = LoggerFactory.getLogger(SecurityController.class);
+public class AuthenticateController {
+    private static Logger LOGGER = LoggerFactory.getLogger(AuthenticateController.class);
 
 
 }

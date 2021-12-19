@@ -1,10 +1,6 @@
 package com.fsoft.igos.entity;
 
 import lombok.Data;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 @Data
-public class UserEntity {
+public class UserEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,18 +32,5 @@ public class UserEntity {
 
     @Column(name = "status")
     private Boolean status;
-
-    @Column(name = "createdDateTime", columnDefinition = "TIMESTAMP DEFAULT CURRENT_DATE", updatable = false)
-    @CreationTimestamp
-    private Date createdDateTime;
-
-    @Column(name = "updatedDateTime", columnDefinition = "TIMESTAMP DEFAULT CURRENT_DATE")
-    @UpdateTimestamp
-    private Date updatedDateTime;
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-    }
 
 }

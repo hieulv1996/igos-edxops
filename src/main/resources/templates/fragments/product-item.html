@@ -1,0 +1,17 @@
+<div class="col-lg-3 mb-4" th:fragment="product-item (itemImage, itemHeader, itemPrice, itemPriceSale)">
+    <div class="card" style="width: 18rem; min-height: 350px">
+        <img th:src="${itemImage}" class="card-img-top photo-logo-size"
+             alt="product-image">
+        <div class="card-body">
+            <h5 class="card-title" th:utext="${itemHeader}"></h5>
+            <p class="card-text" th:if="${itemPriceSale} != ''">
+                Sales off: <span th:utext="${itemPriceSale}"></span>  <br>
+                Price: <span th:utext="${itemPrice}"></span> <br>
+            </p>
+
+            <p class="card-text" th:if="${itemPriceSale} == ''">
+                Price: <span th:utext="${itemPrice}"></span> <br>
+            </p>
+        </div>
+    </div>
+</div>
